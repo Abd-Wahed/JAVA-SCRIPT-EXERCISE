@@ -1,0 +1,40 @@
+// Fix the variable declarations to follow best practices
+const userName = "John";
+let userAge = 25;
+let isLoggedIn = false;
+
+// What should be const vs let? Rewrite below:
+// Your answer:const are not chanable
+let are rechangable
+
+// Convert these string concatenations to template literals
+const firstName = "John";
+const lastName = "Doe";
+const age = 25;
+
+const message1 = `Hello,  ${firstName}  ${lastName} !`;
+const message2 = `You are ${age} years old.`;
+const message3 = `In 10 years, you will be ${age + 10} .`;
+
+// Your template literal versions:
+
+
+// Convert these functions to arrow functions
+function add(a, b) {
+  return a + b;
+}
+
+function isEven(num) {
+  return num % 2 === 0;
+}
+
+function greet(name) {
+  console.log('Hello,${ name}');
+}
+
+// Your arrow function versions:
+
+
+https://official-joke-api.appspot.com/random_joke
+
+
