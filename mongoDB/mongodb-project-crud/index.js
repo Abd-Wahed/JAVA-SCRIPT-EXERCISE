@@ -29,6 +29,18 @@ app.post("/student-insert", async (req, res) => {
 
     let { sName, sEmail } = req.body;
     let obj = { sName, sEmail }
+
+    let checkEmail = await studentCollection.findOne({sEmail})
+    // console.log(checkEmail)
+    if(checkEmail){
+        return res.send({
+            status:1,
+            msg:"Email Id already Exist"
+        })
+    }
+
+    
+
     let insertRes = await studentCollection.insertOne(obj)
     // console.log(obj);
     let resObj = {
@@ -36,7 +48,7 @@ app.post("/student-insert", async (req, res) => {
         msg: "Data Insert",
         insertRes
     }
-
+                                 
     res.send(resObj)
 })
 
@@ -63,9 +75,24 @@ app.put("/student-update/:id",async(req,res)=>{
     let {id}=req.params; //where
     let {sName,sEmail}=req.body;
 
-    let obj={sName,sEmail};
+    let obj={};
+
+    if(sName !=="" && sName!==undefined && sName!==null){
+        obj['sName']=sName
+    }
+     if(sEmail !=="" && sEmail!==undefined && sEmail!==null){
+        obj['sEmail']=sEmail
+    }
+
+
     let myDB=await dbConnection();
     let studentCollection=myDB.collection("students")
-
+    let updatesRes = await studentCollection.updateOne({_id:new ObjectId(id)},{$set:{sName,sEmail}})
+        let resObj={
+        status:1,
+        msg:"Data Update",
+        delRes
+    }
+    res.send(resObj)
 })
 app.listen("8000")
