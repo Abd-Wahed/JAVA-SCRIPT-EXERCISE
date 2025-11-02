@@ -40,7 +40,7 @@ app.post("/student-insert", async (req, res) => {
     res.send(resObj)
 })
 
-app.delete("/student-delete/:id?",async(req,res)=>{
+app.delete("/student-delete/:id",async(req,res)=>{
     // let paramsData = req.params;
     // console.log(paramsData)
     let {id}=req.params;
@@ -48,7 +48,24 @@ app.delete("/student-delete/:id?",async(req,res)=>{
     let studentCollection=myDB.collection("students")
     let delRes=await studentCollection.deleteOne({_id:new ObjectId(id)})
 
-    res.send("Delete API")
+    let resObj={
+        status:1,
+        msg:"Data Delete",
+        delRes
+    }
+    res.send(resObj)
 })
 
+
+
+// update 
+app.put("/student-update/:id",async(req,res)=>{
+    let {id}=req.params; //where
+    let {sName,sEmail}=req.body;
+
+    let obj={sName,sEmail};
+    let myDB=await dbConnection();
+    let studentCollection=myDB.collection("students")
+
+})
 app.listen("8000")
