@@ -1,5 +1,6 @@
 let express = require("express")
 const { dbConnection } = require("./dbConnection")
+const { ObjectId } = require("mongodb")
 let app = express()
 
 app.use(express.json())
@@ -37,6 +38,17 @@ app.post("/student-insert", async (req, res) => {
     }
 
     res.send(resObj)
+})
+
+app.delete("/student-delete/:id?",async(req,res)=>{
+    // let paramsData = req.params;
+    // console.log(paramsData)
+    let {id}=req.params;
+    let myDB=await dbConnection();
+    let studentCollection=myDB.collection("students")
+    let delRes=await studentCollection.deleteOne({_id:new ObjectId(id)})
+
+    res.send("Delete API")
 })
 
 app.listen("8000")
